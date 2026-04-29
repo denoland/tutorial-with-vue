@@ -5,4 +5,6 @@ type Dinosaur = {
 
 type ComponentData = {
     dinosaurDetails: null | Dinosaur;
+    isFavorite: boolean;
+    isLoading: boolean;
 };
