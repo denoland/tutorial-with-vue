@@ -1,8 +1,10 @@
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue';
+import { defineComponent, ref, computed, onMounted, onBeforeRouteUpdate, onBeforeRouteEnter } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
     setup() {
+        const route = useRoute();
         const allDinosaurs = ref<Dinosaur[]>([]);
         const favoriteDinosaurs = ref<Dinosaur[]>([]);
         const showFavoritesOnly = ref(false);
@@ -49,6 +51,16 @@ export default defineComponent({
 
         onMounted(() => {
             loadData();
+        });
+
+        onBeforeRouteEnter((to, from, next) => {
+            loadData(false);
+            next();
+        });
+
+        onBeforeRouteUpdate((to, from, next) => {
+            loadData(false);
+            next();
         });
 
         return {
